@@ -14,7 +14,7 @@ export default function Landing({ onBegin }) {
       <p className={styles.subline}>
         Most people invest wrong. Not because of bad picks —<br />
         because they don't know themselves.<br />
-        8 questions. 5 minutes. One honest answer.
+        9 questions. 5 minutes. One honest answer.
       </p>
 
       <button className={styles.cta} onClick={onBegin} type="button">
