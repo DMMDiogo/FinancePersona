@@ -7,10 +7,11 @@ import Q5 from './questions/Q5';
 import Q6 from './questions/Q6';
 import Q7 from './questions/Q7';
 import Q8 from './questions/Q8';
-import Q9 from './questions/Q9';
+import QHoldings from './questions/QHoldings';
+import QTimeHorizon from './questions/QTimeHorizon';
 import styles from './Quiz.module.css';
 
-const QUESTIONS = [Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9];
+const QUESTIONS = [Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, QHoldings, QTimeHorizon];
 
 export default function Quiz({ answers, onAnswer, onComplete }) {
   const [step, setStep] = useState(0);

@@ -1,0 +1,241 @@
+.wrapper {
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.counter {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+.labelTag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--cyan);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.question {
+  font-family: var(--font-heading);
+  font-size: clamp(20px, 3vw, 26px);
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.35;
+  margin: 0;
+}
+
+/* ── Display area ── */
+.display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-height: 80px;
+  justify-content: center;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.displayYear {
+  font-family: var(--font-heading);
+  font-size: clamp(36px, 7vw, 56px);
+  font-weight: 800;
+  line-height: 1;
+  transition: color 0.3s ease;
+  letter-spacing: -0.02em;
+}
+
+.displayMilestone {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.displayPrompt {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  opacity: 0.5;
+  animation: blink 1.6s ease infinite;
+}
+
+/* ── Slider ── */
+.sliderWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 4px;
+}
+
+.trackWrap {
+  position: relative;
+  height: 6px;
+  background: var(--surface2);
+  border-radius: 3px;
+  border: 1px solid var(--border);
+}
+
+.trackFill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.12s ease, background 0.3s ease, box-shadow 0.3s ease;
+  pointer-events: none;
+}
+
+.range {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 32px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+  margin: 0;
+  padding: 0;
+  z-index: 2;
+}
+
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--thumb-color, rgba(255,255,255,0.25));
+  box-shadow: 0 0 10px var(--thumb-color, transparent), 0 2px 6px rgba(0,0,0,0.4);
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.1s ease;
+}
+
+.range::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+.range::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--thumb-color, rgba(255,255,255,0.25));
+  box-shadow: 0 0 10px var(--thumb-color, transparent), 0 2px 6px rgba(0,0,0,0.4);
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.range::-webkit-slider-runnable-track {
+  background: transparent;
+  height: 6px;
+}
+
+.range::-moz-range-track {
+  background: transparent;
+  height: 6px;
+}
+
+/* ── Ticks ── */
+.ticks {
+  position: relative;
+  height: 36px;
+}
+
+.tick {
+  position: absolute;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.2s ease;
+}
+
+.tickDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--border);
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.tickDotActive {
+  transform: scale(1.4);
+}
+
+.tickLabel {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: inherit;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.tick:not(.tickActive) .tickLabel {
+  color: var(--muted);
+}
+
+/* ── Continue button ── */
+.continueBtn {
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 12px 32px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, border-color 0.3s ease, opacity 0.2s ease;
+  min-height: 48px;
+}
+
+.continueBtn:hover:not(:disabled) {
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 0 20px rgba(255,255,255,0.08);
+}
+
+.continueBtn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+/* ── Keyframes ── */
+@keyframes blink {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.2; }
+}
+
+@media (max-width: 480px) {
+  .continueBtn {
+    align-self: stretch;
+    text-align: center;
+  }
+
+  .tickLabel {
+    font-size: 8px;
+  }
+}

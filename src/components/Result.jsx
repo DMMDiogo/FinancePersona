@@ -246,11 +246,12 @@ function Accordion({ tag, title, defaultOpen = false, children }) {
   );
 }
 
-export default function Result({ archetype: archetypeKey, answers, onRetake }) {
+export default function Result({ archetype: archetypeKey, suitability, answers, onRetake }) {
   const archetype = ARCHETYPES[archetypeKey];
   const emergencyFlag = answers[2] === 3;
   const literacy = answers[3];
   const colors = ARCHETYPE_COLORS[archetypeKey];
+  const resolvedSuitability = suitability ?? 'growth';
 
   const handleDownload = () => {
     downloadResultCard(archetypeKey, archetype);
@@ -297,7 +298,7 @@ export default function Result({ archetype: archetypeKey, answers, onRetake }) {
       {/* ── Accordion sections ── */}
       <div className={styles.sections}>
         <Accordion tag="01" title="YOUR MOVE" defaultOpen>
-          <SectionMove archetype={archetype} literacy={literacy} />
+          <SectionMove archetype={archetype} suitability={resolvedSuitability} literacy={literacy} />
         </Accordion>
 
         <Accordion tag="02" title="WHAT WILL STOP YOU">
@@ -338,16 +339,32 @@ export default function Result({ archetype: archetypeKey, answers, onRetake }) {
   );
 }
 
-function SectionMove({ archetype, literacy }) {
-  const { etf } = archetype;
+function SectionMove({ archetype, suitability, literacy }) {
+  const etf = archetype.suitabilityEtf?.[suitability] ?? archetype.etf;
+  const isNotReady = etf.isin === null;
+
   return (
     <div className={styles.moveSection}>
+
+      {/* ── Suitability context line ── */}
+      {suitability === 'conservative' && (
+        <div className={styles.suitabilityNote}>
+          <span className={styles.suitabilityIcon}>◈</span>
+          <span>Based on your horizon and foundation, here's your direction right now:</span>
+        </div>
+      )}
+      {suitability === 'moderate' && (
+        <div className={styles.suitabilityNote}>
+          <span className={styles.suitabilityIcon}>◈</span>
+          <span>Your situation supports equity — with some cushioning. Here's the right structure:</span>
+        </div>
+      )}
 
       {/* ── Fund identity ── */}
       <div className={styles.etfIdentity}>
         <span className={styles.etfTicker}>{etf.ticker}</span>
         <span className={styles.etfName}>{etf.name}</span>
-        {literacy === 'advanced' && (
+        {literacy === 'advanced' && etf.isin && (
           <span className={styles.etfAdvanced}>ISIN: {etf.isin} · AUM: {etf.aum}</span>
         )}
       </div>

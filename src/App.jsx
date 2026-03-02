@@ -9,12 +9,13 @@ import GlobalDisclaimer from './components/GlobalDisclaimer';
 import { calculateArchetype } from './utils/scoring';
 
 const SCREENS = { landing: 'landing', quiz: 'quiz', processing: 'processing', result: 'result' };
-const TOTAL_QUESTIONS = 9;
+const TOTAL_QUESTIONS = 10;
 
 export default function App() {
   const [screen, setScreen] = useState(SCREENS.landing);
   const [answers, setAnswers] = useState(new Array(TOTAL_QUESTIONS).fill(undefined));
   const [archetype, setArchetype] = useState(null);
+  const [suitability, setSuitability] = useState(null);
 
   const handleBegin = () => setScreen(SCREENS.quiz);
 
@@ -27,14 +28,16 @@ export default function App() {
   }, []);
 
   const handleProcessingDone = useCallback(() => {
-    const result = calculateArchetype(answers);
-    setArchetype(result);
+    const { archetype: a, suitability: s } = calculateArchetype(answers);
+    setArchetype(a);
+    setSuitability(s);
     setScreen(SCREENS.result);
   }, [answers]);
 
   const handleRetake = useCallback(() => {
     setAnswers(new Array(TOTAL_QUESTIONS).fill(undefined));
     setArchetype(null);
+    setSuitability(null);
     setScreen(SCREENS.landing);
   }, []);
 
@@ -61,7 +64,7 @@ export default function App() {
       )}
       {screen === SCREENS.processing && <Processing onDone={handleProcessingDone} />}
       {screen === SCREENS.result && archetype && (
-        <Result archetype={archetype} answers={answers} onRetake={handleRetake} />
+        <Result archetype={archetype} suitability={suitability} answers={answers} onRetake={handleRetake} />
       )}
 
       <GlobalDisclaimer />
