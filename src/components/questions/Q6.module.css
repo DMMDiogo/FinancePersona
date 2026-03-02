@@ -1,0 +1,129 @@
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+@keyframes scanLine {
+  0%   { opacity: 0;   transform: translateY(-100%); }
+  40%  { opacity: 0.9; }
+  100% { opacity: 0;   transform: translateY(100%); }
+}
+
+@keyframes selectedGlow {
+  0%, 100% { box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 20%, transparent); }
+  50%       { box-shadow: 0 0 42px color-mix(in srgb, var(--accent) 38%, transparent); }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  cursor: pointer;
+  text-align: left;
+  overflow: hidden;
+  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+
+  opacity: 0;
+  animation: fadeUp 0.35s ease forwards;
+  animation-delay: calc(var(--i) * 60ms);
+}
+
+.card::before {
+  display: none;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+  pointer-events: none;
+  animation: scanLine 0.55s ease forwards;
+  animation-delay: calc(var(--i) * 60ms + 80ms);
+}
+
+.card:hover {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 4%, var(--surface));
+  box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 15%, transparent);
+  transform: translateY(-3px);
+}
+
+.selected {
+  border-color: var(--accent);
+  opacity: 1;
+  animation: selectedGlow 2s ease-in-out infinite;
+}
+
+.selected .avatar {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 80%, transparent),
+              0 0 10px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+.selected .bubble {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 9%, var(--surface));
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #0a0a0f;
+  font-family: var(--font-mono);
+  font-size: 17px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: box-shadow 0.2s ease;
+}
+
+.bubble {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 14px;
+  background: color-mix(in srgb, var(--accent) 5%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--border));
+  border-radius: 4px 14px 14px 14px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.quote {
+  font-family: var(--font-heading);
+  font-size: clamp(13px, 1.8vw, 15px);
+  font-weight: 500;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.5;
+  margin: 0;
+  flex: 1;
+}
+
+.name {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  align-self: flex-end;
+}

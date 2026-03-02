@@ -1,0 +1,42 @@
+.cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.word {
+  font-family: var(--font-heading);
+  font-size: clamp(18px, 3vw, 24px);
+  font-weight: 700;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 10px 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 48px;
+}
+
+.word:hover:not(:disabled) {
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+
+.selected {
+  background: var(--cyan) !important;
+  border-color: var(--cyan) !important;
+  color: var(--bg) !important;
+  box-shadow: 0 0 20px var(--cyan-glow);
+}
+
+.soft {
+  opacity: 0.6;
+}
+
+.faded {
+  opacity: 0.2;
+  cursor: default;
+  pointer-events: none;
+}

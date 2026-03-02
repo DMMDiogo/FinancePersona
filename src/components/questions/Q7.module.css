@@ -1,0 +1,198 @@
+.wrapper {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.counter {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+.labelText {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--cyan);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.portfolioLabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+.portfolioValue {
+  font-family: var(--font-mono);
+  font-size: clamp(16px, 2.5vw, 22px);
+  font-weight: 700;
+  color: var(--text);
+  transition: color 0.3s ease;
+}
+
+.portfolioChange {
+  font-family: var(--font-mono);
+  font-size: clamp(13px, 1.5vw, 15px);
+  font-weight: 700;
+  color: var(--green);
+  transition: color 0.3s ease;
+}
+
+.portfolioChange[data-dropping='true'] {
+  color: var(--red);
+}
+
+.canvasWrapper {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.turmoil {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--red);
+  letter-spacing: 0.08em;
+  animation: fadeIn 0.3s ease;
+  text-shadow: 0 0 12px rgba(255,59,92,0.5);
+}
+
+.status {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-align: center;
+}
+
+.decideSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.countdown {
+  font-family: var(--font-mono);
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--red);
+  animation: countdownPulse 1s ease infinite;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  width: 100%;
+}
+
+.btn {
+  font-family: var(--font-mono);
+  font-size: clamp(10px, 1.2vw, 12px);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 14px 8px;
+  border-radius: var(--radius);
+  border: 1px solid;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 48px;
+}
+
+.btnRed {
+  border-color: var(--red);
+  color: var(--red);
+}
+.btnRed:hover {
+  background: rgba(255,59,92,0.1);
+  box-shadow: 0 0 16px rgba(255,59,92,0.2);
+}
+
+.btnMuted {
+  border-color: var(--border);
+  color: var(--muted);
+}
+.btnMuted:hover {
+  border-color: var(--text);
+  color: var(--text);
+}
+
+.btnGreen {
+  border-color: var(--green);
+  color: var(--green);
+}
+.btnGreen:hover {
+  background: rgba(0,255,136,0.1);
+  box-shadow: 0 0 16px rgba(0,255,136,0.2);
+}
+
+.feedback {
+  padding: 24px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  animation: fadeUp 0.4s ease;
+}
+
+.feedbackText {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.feedbackText[data-color='red'] { color: var(--red); }
+.feedbackText[data-color='muted'] { color: var(--muted); }
+.feedbackText[data-color='green'] { color: var(--green); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes countdownPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@media (max-width: 480px) {
+  .actions {
+    grid-template-columns: 1fr;
+  }
+}

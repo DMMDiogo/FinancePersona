@@ -1,0 +1,36 @@
+.frame {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 16px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: box-shadow 0.3s ease;
+}
+
+/* archetype glow tints */
+.frame[data-archetype='builder']     { box-shadow: 0 0 28px rgba(0,245,255,0.12); border-color: rgba(0,245,255,0.25); }
+.frame[data-archetype='gambler']     { box-shadow: 0 0 28px rgba(245,200,66,0.12); border-color: rgba(245,200,66,0.25); }
+.frame[data-archetype='overthinker'] { box-shadow: 0 0 28px rgba(167,139,250,0.12); border-color: rgba(167,139,250,0.25); }
+.frame[data-archetype='protector']   { box-shadow: 0 0 28px rgba(0,255,136,0.12); border-color: rgba(0,255,136,0.25); }
+
+.canvas {
+  display: block;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* tag color per archetype */
+.frame[data-archetype='builder']     .tag { color: var(--cyan); }
+.frame[data-archetype='gambler']     .tag { color: var(--gold); }
+.frame[data-archetype='overthinker'] .tag { color: #a78bfa; }
+.frame[data-archetype='protector']   .tag { color: var(--green); }
