@@ -11,7 +11,7 @@ import QHoldings from './questions/QHoldings';
 import QTimeHorizon from './questions/QTimeHorizon';
 import styles from './Quiz.module.css';
 
-const QUESTIONS = [Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, QHoldings, QTimeHorizon];
+const QUESTIONS = [Q1, Q4, Q3, QHoldings, Q2, Q6, Q5, Q7, Q8, QTimeHorizon];
 
 export default function Quiz({ answers, onAnswer, onComplete }) {
   const [step, setStep] = useState(0);

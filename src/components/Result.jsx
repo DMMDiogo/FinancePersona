@@ -249,7 +249,7 @@ function Accordion({ tag, title, defaultOpen = false, children }) {
 export default function Result({ archetype: archetypeKey, suitability, answers, onRetake }) {
   const archetype = ARCHETYPES[archetypeKey];
   const emergencyFlag = answers[2] === 3;
-  const literacy = answers[3];
+  const literacy = answers[1];
   const colors = ARCHETYPE_COLORS[archetypeKey];
   const resolvedSuitability = suitability ?? 'growth';
 
@@ -301,16 +301,16 @@ export default function Result({ archetype: archetypeKey, suitability, answers, 
           <SectionMove archetype={archetype} suitability={resolvedSuitability} literacy={literacy} />
         </Accordion>
 
-        <Accordion tag="02" title="WHAT WILL STOP YOU">
+        <Accordion tag="02" title="WHAT YOU'RE ACTUALLY BUYING">
+          <SectionExplainer archetypeKey={archetypeKey} />
+        </Accordion>
+
+        <Accordion tag="03" title="WHAT WILL STOP YOU">
           <SectionTrap archetype={archetype} />
         </Accordion>
 
-        <Accordion tag="03" title="YOUR RULEBOOK">
+        <Accordion tag="04" title="YOUR RULEBOOK">
           <SectionRules archetype={archetype} />
-        </Accordion>
-
-        <Accordion tag="04" title="WHAT YOU'RE ACTUALLY BUYING">
-          <SectionExplainer archetypeKey={archetypeKey} />
         </Accordion>
 
         <Accordion tag="05" title="THE NUMBERS THAT ACTUALLY MATTER">

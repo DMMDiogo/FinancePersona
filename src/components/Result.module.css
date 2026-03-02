@@ -366,13 +366,17 @@
 .altBlock {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
+  background: rgba(0,245,255,0.04);
+  border: 1px solid rgba(0,245,255,0.15);
+  border-radius: var(--radius);
+  padding: 14px 16px;
 }
 
 .altLabel {
   font-family: var(--font-mono);
   font-size: 10px;
-  color: var(--muted);
+  color: var(--cyan);
   letter-spacing: 0.15em;
   text-transform: uppercase;
 }
@@ -489,12 +493,10 @@
 /* ── ETF Alternatives ── */
 .etfAlternatives {
   font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--muted);
+  font-size: 12px;
+  color: rgba(232,232,240,0.75);
   line-height: 1.7;
-  border-left: 2px solid var(--border);
-  padding-left: 12px;
-  margin-top: 8px;
+  margin: 0;
 }
 
 .literacyNote {

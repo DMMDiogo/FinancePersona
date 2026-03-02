@@ -11,7 +11,7 @@ export function calculateArchetype(answers) {
   ];
   if (answers[0] !== undefined) apply(scores, q1Map[answers[0]]);
 
-  // Q2 emotion (array of up to 2 strings) — Confused capped at 3 (was 4)
+  // Q2 emotion (array of up to 2 strings) — now at index 4
   const q2Map = {
     'Anxious':     { protector: 3 },
     'Excited':     { gambler: 3 },
@@ -20,8 +20,8 @@ export function calculateArchetype(answers) {
     'Confused':    { overthinker: 3 },
     'Numb':        { protector: 1, overthinker: 1 },
   };
-  if (Array.isArray(answers[1])) {
-    answers[1].forEach((word) => { if (q2Map[word]) apply(scores, q2Map[word]); });
+  if (Array.isArray(answers[4])) {
+    answers[4].forEach((word) => { if (q2Map[word]) apply(scores, q2Map[word]); });
   }
 
   // Q3 power cut (index 0-3) — feeds both archetype and suitability
@@ -37,18 +37,18 @@ export function calculateArchetype(answers) {
     suitabilityScore += q3SuitabilityMap[answers[2]];
   }
 
-  // Q4 literacy — NO archetype points. answers[3] = literacy string.
+  // Q4 literacy — NO archetype points. answers[1] = literacy string.
 
-  // Q5 Marco (string key)
+  // Q5 Marco (string key) — now at index 6
   const q5Map = {
     fomo:    { gambler: 3 },
     cautious:{ overthinker: 2 },
     pass:    { builder: 2 },
     froze:   { builder: 1, overthinker: 1 },
   };
-  if (answers[4] && q5Map[answers[4]]) apply(scores, q5Map[answers[4]]);
+  if (answers[6] && q5Map[answers[6]]) apply(scores, q5Map[answers[6]]);
 
-  // Q6 dinner party (index 0-3)
+  // Q6 dinner party (index 0-3) — stays at index 5
   const q6Map = [
     { gambler: 2 },   // Alex travel
     { gambler: 3 },   // Jordan money
@@ -57,19 +57,19 @@ export function calculateArchetype(answers) {
   ];
   if (answers[5] !== undefined) apply(scores, q6Map[answers[5]]);
 
-  // Q7 crash canvas (string)
+  // Q7 crash canvas (string) — now at index 7
   const q7Map = { sell: { protector: 3 }, hold: { builder: 3 }, buy: { gambler: 4 } };
-  if (answers[6] && q7Map[answers[6]]) apply(scores, q7Map[answers[6]]);
+  if (answers[7] && q7Map[answers[7]]) apply(scores, q7Map[answers[7]]);
 
-  // Q8 wrong decision (index 0-2)
+  // Q8 wrong decision (index 0-2) — now at index 8
   const q8Map = [
     { overthinker: 2 },
     { builder: 3 },
     { gambler: 2 },
   ];
-  if (answers[7] !== undefined) apply(scores, q8Map[answers[7]]);
+  if (answers[8] !== undefined) apply(scores, q8Map[answers[8]]);
 
-  // QHoldings (array of strings, index 8)
+  // QHoldings (array of strings) — now at index 3
   const holdingsArchetypeMap = {
     savings_cash: { protector: 1 },
     index_etf:    { builder: 2 },
@@ -86,8 +86,8 @@ export function calculateArchetype(answers) {
     reits:        1,
     crypto_alt:   0,
   };
-  if (Array.isArray(answers[8])) {
-    answers[8].forEach((key) => {
+  if (Array.isArray(answers[3])) {
+    answers[3].forEach((key) => {
       if (holdingsArchetypeMap[key]) apply(scores, holdingsArchetypeMap[key]);
       if (holdingsSuitabilityMap[key] !== undefined) suitabilityScore += holdingsSuitabilityMap[key];
     });
