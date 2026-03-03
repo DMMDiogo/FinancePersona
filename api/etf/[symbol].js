@@ -1,0 +1,24 @@
+export default async function handler(req, res) {
+  const { symbol } = req.query;
+
+  if (!symbol || !/^[A-Z0-9.]{2,12}$/.test(symbol)) {
+    return res.status(400).json({ error: 'Invalid symbol' });
+  }
+
+  try {
+    const url = `https://query2.finance.yahoo.com/v8/finance/chart/${symbol}?interval=1d&range=1y`;
+    const response = await fetch(url, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; ETFProject/1.0)' },
+    });
+
+    if (!response.ok) {
+      return res.status(response.status).json({ error: 'Upstream error' });
+    }
+
+    const data = await response.json();
+    res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=7200');
+    return res.json(data);
+  } catch (err) {
+    return res.status(500).json({ error: 'Fetch failed' });
+  }
+}
