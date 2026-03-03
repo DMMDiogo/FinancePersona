@@ -1,12 +1,19 @@
+const VALID_INTERVALS = new Set(['1d', '1wk', '1mo']);
+const VALID_RANGES = new Set(['1mo', '3mo', '6mo', '1y', '2y', '5y']);
+
 export default async function handler(req, res) {
-  const { symbol } = req.query;
+  const { symbol, interval = '1d', range = '1y' } = req.query;
 
   if (!symbol || !/^[A-Z0-9.]{2,12}$/.test(symbol)) {
     return res.status(400).json({ error: 'Invalid symbol' });
   }
 
+  if (!VALID_INTERVALS.has(interval) || !VALID_RANGES.has(range)) {
+    return res.status(400).json({ error: 'Invalid interval or range' });
+  }
+
   try {
-    const url = `https://query2.finance.yahoo.com/v8/finance/chart/${symbol}?interval=1d&range=1y`;
+    const url = `https://query2.finance.yahoo.com/v8/finance/chart/${symbol}?interval=${interval}&range=${range}`;
     const response = await fetch(url, {
       headers: { 'User-Agent': 'Mozilla/5.0 (compatible; ETFProject/1.0)' },
     });

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { ARCHETYPES } from '../data/archetypes';
 import PixelArt from './PixelArt';
 import EtfLiveBadge from './EtfLiveBadge';
+import EtfChart from './EtfChart';
 import { downloadResultCard } from '../utils/downloadCard';
 import styles from './Result.module.css';
 
@@ -299,7 +300,7 @@ export default function Result({ archetype: archetypeKey, suitability, answers, 
       {/* ── Accordion sections ── */}
       <div className={styles.sections}>
         <Accordion tag="01" title="YOUR MOVE" defaultOpen>
-          <SectionMove archetype={archetype} suitability={resolvedSuitability} literacy={literacy} />
+          <SectionMove archetype={archetype} suitability={resolvedSuitability} literacy={literacy} color={colors.stroke} />
         </Accordion>
 
         <Accordion tag="02" title="WHAT YOU'RE ACTUALLY BUYING">
@@ -340,7 +341,7 @@ export default function Result({ archetype: archetypeKey, suitability, answers, 
   );
 }
 
-function SectionMove({ archetype, suitability, literacy }) {
+function SectionMove({ archetype, suitability, literacy, color }) {
   const etf = archetype.suitabilityEtf?.[suitability] ?? archetype.etf;
   const isNotReady = etf.isin === null;
 
@@ -370,6 +371,9 @@ function SectionMove({ archetype, suitability, literacy }) {
           <span className={styles.etfAdvanced}>ISIN: {etf.isin} · AUM: {etf.aum}</span>
         )}
       </div>
+
+      {/* ── Chart ── */}
+      {!isNotReady && <EtfChart ticker={etf.ticker} color={color} />}
 
       {/* ── What you're buying ── */}
       <p className={styles.etfDesc}>{etf.description}</p>

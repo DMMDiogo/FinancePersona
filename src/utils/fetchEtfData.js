@@ -22,6 +22,34 @@ function formatCurrencySymbol(currency) {
   return '€';
 }
 
+export async function fetchEtfChart(tickerString) {
+  const primary = extractPrimaryTicker(tickerString);
+  if (!primary) return null;
+
+  const yahooSymbol = YAHOO_SYMBOLS[primary];
+  if (!yahooSymbol) return null;
+
+  try {
+    const res = await fetch(`/api/etf/${yahooSymbol}?interval=1mo&range=1y`);
+    if (!res.ok) return null;
+
+    const data = await res.json();
+    const chart = data?.chart?.result?.[0];
+    if (!chart) return null;
+
+    const timestamps = chart.timestamp ?? [];
+    const closes = chart.indicators?.quote?.[0]?.close ?? [];
+
+    const points = timestamps
+      .map((ts, i) => ({ date: new Date(ts * 1000), close: closes[i] }))
+      .filter(p => p.close != null);
+
+    return points.length >= 2 ? points : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function fetchEtfData(tickerString) {
   const primary = extractPrimaryTicker(tickerString);
   if (!primary) return null;
