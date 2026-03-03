@@ -127,11 +127,8 @@ export const ARCHETYPES = {
           'This is a studied, defensible choice. You\'ll be able to justify it to yourself.',
         ],
         alternatives: {
-          items: [
-            { ticker: 'IGLO', name: 'iShares Global Government Bond (0.10%)', why: 'Diversified government bond exposure. Stable and defensible across any rate environment.' },
-            { ticker: 'IBTS', name: 'iShares Short-Term Government Bond (0.07%)', why: 'Shorter duration = faster recovery if rates move. Lowest volatility in the fixed income space.' },
-          ],
-          note: 'Once your horizon extends past 5 years, revisit IWDA.',
+          items: [],
+          note: 'Once your horizon extends past 5 years, revisit IWDA — the case for developed markets gets stronger every year you wait.',
         },
         isin: 'IE00B3F81409 / IE00B14X4S71',
         aum: '~€3bn / ~€2bn',
