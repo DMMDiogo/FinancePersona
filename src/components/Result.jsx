@@ -8,6 +8,15 @@ import styles from './Result.module.css';
 const AXES = ['Risk', 'Patience', 'Resilience', 'Discipline', 'Influence', 'Self-Know.'];
 const AXIS_KEYS = ['risk', 'patience', 'resilience', 'discipline', 'influence', 'selfKnow'];
 
+const TRAIT_TIPS = {
+  risk:       'How comfortable you are watching your portfolio drop. High = can stomach major crashes without panic-selling.',
+  patience:   'Your investment horizon. High = you think in years or decades, not weeks or months.',
+  resilience: 'How quickly you mentally recover after losses and stay the course with your plan.',
+  discipline: 'Consistency in following your investment plan without impulsive changes.',
+  influence:  'Susceptibility to tips, news, and social buzz. High = often swayed by external noise.',
+  selfKnow:   'How accurately you understand your own financial behaviors and emotional triggers.',
+};
+
 const ARCHETYPE_COLORS = {
   builder:     { fill: 'rgba(0,245,255,0.15)',   stroke: 'rgba(0,245,255,0.8)' },
   overthinker: { fill: 'rgba(168,85,247,0.15)',  stroke: 'rgba(168,85,247,0.8)' },
@@ -214,7 +223,10 @@ function BarLegend({ scores, color }) {
         const val = scores[key];
         return (
           <div key={key} className={styles.legendRow} style={{ animationDelay: `${i * 0.1}s` }}>
-            <span className={styles.legendLabel}>{AXES[i].toUpperCase()}</span>
+            <span className={styles.legendLabel}>
+              {AXES[i].toUpperCase()}
+              <span className={styles.traitTip} data-tip={TRAIT_TIPS[key]}>ⓘ</span>
+            </span>
             <div className={styles.barTrack}>
               <div
                 className={styles.barFill}
@@ -340,6 +352,30 @@ export default function Result({ archetype: archetypeKey, suitability, answers, 
   );
 }
 
+function AltCards({ alternatives, color }) {
+  if (!alternatives?.items?.length) return null;
+  return (
+    <div className={styles.altSection}>
+      <span className={styles.altLabel}>ALTERNATIVES</span>
+      <div className={styles.altGrid}>
+        {alternatives.items.map((alt) => (
+          <div key={alt.ticker} className={styles.altCard}>
+            <div className={styles.altCardHeader}>
+              <span className={styles.altTicker} style={{ color }}>{alt.ticker}</span>
+              <span className={styles.altName}>{alt.name}</span>
+            </div>
+            <EtfChart ticker={alt.ticker} color={color} compact />
+            <p className={styles.altWhy}>{alt.why}</p>
+          </div>
+        ))}
+      </div>
+      {alternatives.note && (
+        <p className={styles.altNote}>{alternatives.note}</p>
+      )}
+    </div>
+  );
+}
+
 function SectionMove({ archetype, suitability, literacy, color }) {
   const etf = archetype.suitabilityEtf?.[suitability] ?? archetype.etf;
   const isNotReady = etf.isin === null;
@@ -397,12 +433,7 @@ function SectionMove({ archetype, suitability, literacy, color }) {
       </div>
 
       {/* ── Alternatives ── */}
-      {etf.alternatives && (
-        <div className={styles.altBlock}>
-          <span className={styles.altLabel}>ALTERNATIVES</span>
-          <p className={styles.etfAlternatives}>{etf.alternatives}</p>
-        </div>
-      )}
+      <AltCards alternatives={etf.alternatives} color={color} />
 
     </div>
   );

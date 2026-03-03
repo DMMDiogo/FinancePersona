@@ -153,7 +153,7 @@
 
 .legendRow {
   display: grid;
-  grid-template-columns: 90px 1fr 28px;
+  grid-template-columns: 110px 1fr 28px;
   gap: 12px;
   align-items: center;
   animation: fadeUp 0.4s ease both;
@@ -490,7 +490,108 @@
   margin: 0 auto;
 }
 
-/* ── ETF Alternatives ── */
+/* ── Trait tooltip ⓘ ── */
+.traitTip {
+  display: inline-block;
+  margin-left: 4px;
+  font-size: 8px;
+  color: var(--muted);
+  cursor: help;
+  position: relative;
+  opacity: 0.5;
+  vertical-align: middle;
+}
+
+.traitTip::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 0;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 8px 10px;
+  width: 220px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text);
+  line-height: 1.5;
+  z-index: 10;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  white-space: normal;
+}
+
+.traitTip:hover::after {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* ── ETF Alternatives cards ── */
+.altSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.altGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.altCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.altCardHeader {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.altTicker {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+.altName {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.altWhy {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.altNote {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: rgba(232,232,240,0.38);
+  line-height: 1.5;
+  margin: 0;
+  padding-top: 2px;
+}
+
+/* ── Legacy (kept for safety) ── */
 .etfAlternatives {
   font-family: var(--font-mono);
   font-size: 12px;

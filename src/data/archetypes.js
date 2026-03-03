@@ -1,3 +1,26 @@
+const ALT_FWRA_SSAC = {
+  items: [
+    { ticker: 'FWRA', name: 'Invesco FTSE All-World (0.15%)', why: 'Identical global exposure to VWCE at lower cost. Best swap if your broker doesn\'t list VWCE.' },
+    { ticker: 'SSAC', name: 'iShares MSCI ACWI (0.20%)', why: 'All-world equivalent from iShares — same concept, larger fund house.' },
+  ],
+  note: 'US investors: VT (Vanguard Total World, 0.07%) — same concept, US-domiciled.',
+};
+
+const ALT_XEON_BUFFER = {
+  items: [
+    { ticker: 'XEON', name: 'Xtrackers Overnight Rate Swap (0.10%)', why: 'Parks your cash in overnight interbank rates while you build your buffer. Better than sitting idle.' },
+  ],
+  note: 'Once buffer is solid, move to VWCE — it will still be here.',
+};
+
+const ALT_IGLO_IBTS = {
+  items: [
+    { ticker: 'IGLO', name: 'iShares Global Government Bond (0.10%)', why: 'Government bonds only — more stable than AGGH, no corporate exposure.' },
+    { ticker: 'IBTS', name: 'iShares Short-Term Government Bond (0.07%)', why: 'Short duration. Fastest to recover in rate moves — lowest volatility floor.' },
+  ],
+  note: 'Pre-built option: AOK (iShares Conservative Allocation) for US investors.',
+};
+
 export const ARCHETYPES = {
   builder: {
     name: 'The Quiet Builder',
@@ -12,7 +35,7 @@ export const ARCHETYPES = {
         'You dislike noise — this gives you nothing to tinker with.',
         'Your patience is your superpower here. Let it work.',
       ],
-      alternatives: 'If VWCE unavailable: FWRA (Invesco, 0.15%), SSAC (iShares, 0.20%), or VT for US investors (0.07%)',
+      alternatives: ALT_FWRA_SSAC,
       isin: 'IE00B3RBWM25',
       aum: '~€20bn',
     },
@@ -26,7 +49,7 @@ export const ARCHETYPES = {
           'The math only works if you don\'t interrupt it. A buffer is what makes that possible.',
           'This isn\'t a delay — it\'s the first step.',
         ],
-        alternatives: 'While building: look at XEON (overnight rate ETF, 0.10%) or a high-yield savings account. Move to VWCE when buffer is solid.',
+        alternatives: ALT_XEON_BUFFER,
         isin: null,
         aum: null,
       },
@@ -39,7 +62,12 @@ export const ARCHETYPES = {
           'In a down year, the bond portion cushions. You won\'t need to sell the whole thing.',
           'As your foundation strengthens, you can shift toward 90/10 or 100% VWCE over time.',
         ],
-        alternatives: 'All-in-one alternative: VNGA80 (Vanguard LifeStrategy 80% Equity, 0.25%). Simpler, auto-rebalanced.',
+        alternatives: {
+          items: [
+            { ticker: 'VNGA80', name: 'Vanguard LifeStrategy 80% Equity (0.25%)', why: 'Auto-rebalanced 80/20 in one fund. Less control, less maintenance — fits your preference for simplicity.' },
+          ],
+          note: null,
+        },
         isin: 'IE00B3RBWM25 / IE00BDBRDM35',
         aum: '~€20bn / ~€12bn',
       },
@@ -52,7 +80,7 @@ export const ARCHETYPES = {
           'You dislike noise — this gives you nothing to tinker with.',
           'Your patience is your superpower here. Let it work.',
         ],
-        alternatives: 'If VWCE unavailable: FWRA (Invesco, 0.15%), SSAC (iShares, 0.20%), or VT for US investors (0.07%)',
+        alternatives: ALT_FWRA_SSAC,
         isin: 'IE00B3RBWM25',
         aum: '~€20bn',
       },
@@ -78,7 +106,13 @@ export const ARCHETYPES = {
         'Simple enough that there\'s nothing to second-guess once set up.',
         'It\'s the most studied ETF in existence. You\'ve already read about it.',
       ],
-      alternatives: 'Cheaper option: SWRD (SPDR MSCI World, 0.12%). Want EM too? Add EMIM 10% alongside IWDA 90%.',
+      alternatives: {
+        items: [
+          { ticker: 'SWRD', name: 'SPDR MSCI World (0.12%)', why: 'Same index as IWDA, 8bps cheaper. Less AUM but identical underlying — a defensible upgrade on cost.' },
+          { ticker: 'EMIM', name: 'iShares MSCI EM IMI (0.18%)', why: 'Add 10% alongside 90% IWDA to capture emerging markets. Adds ~10% of global market cap you\'d otherwise skip.' },
+        ],
+        note: null,
+      },
       isin: 'IE00B4L5Y983',
       aum: '~€80bn',
     },
@@ -92,7 +126,13 @@ export const ARCHETYPES = {
           'IBTS (iShares Short-Term Govt, 0.07%) — even lower duration, faster to recover in rate moves.',
           'This is a studied, defensible choice. You\'ll be able to justify it to yourself.',
         ],
-        alternatives: 'Once your horizon extends past 5 years, revisit IWDA. The case for developed markets gets stronger every year you wait.',
+        alternatives: {
+          items: [
+            { ticker: 'IGLO', name: 'iShares Global Government Bond (0.10%)', why: 'Diversified government bond exposure. Stable and defensible across any rate environment.' },
+            { ticker: 'IBTS', name: 'iShares Short-Term Government Bond (0.07%)', why: 'Shorter duration = faster recovery if rates move. Lowest volatility in the fixed income space.' },
+          ],
+          note: 'Once your horizon extends past 5 years, revisit IWDA.',
+        },
         isin: 'IE00B3F81409 / IE00B14X4S71',
         aum: '~€3bn / ~€2bn',
       },
@@ -105,7 +145,12 @@ export const ARCHETYPES = {
           'The bond portion is liquid. If you need to revisit, you can rebalance without selling equities.',
           'This is a common institutional allocation. You can find 40 years of backtest data on it.',
         ],
-        alternatives: 'All-in-one: VNGA60 (Vanguard LifeStrategy 60% Equity, 0.25%). Auto-rebalanced, nothing to tinker with.',
+        alternatives: {
+          items: [
+            { ticker: 'VNGA60', name: 'Vanguard LifeStrategy 60% Equity (0.25%)', why: 'Auto-rebalanced 60/40 in one fund. No tinkering required — the allocation is maintained automatically.' },
+          ],
+          note: null,
+        },
         isin: 'IE00B4L5Y983 / IE00BDBRDM35',
         aum: '~€80bn / ~€12bn',
       },
@@ -118,7 +163,13 @@ export const ARCHETYPES = {
           'Simple enough that there\'s nothing to second-guess once set up.',
           'It\'s the most studied ETF in existence. You\'ve already read about it.',
         ],
-        alternatives: 'Cheaper option: SWRD (SPDR MSCI World, 0.12%). Want EM too? Add EMIM 10% alongside IWDA 90%.',
+        alternatives: {
+          items: [
+            { ticker: 'SWRD', name: 'SPDR MSCI World (0.12%)', why: 'Same index as IWDA, 8bps cheaper. Less AUM but identical underlying — a defensible upgrade on cost.' },
+            { ticker: 'EMIM', name: 'iShares MSCI EM IMI (0.18%)', why: 'Add 10% alongside 90% IWDA to capture emerging markets. Adds ~10% of global market cap you\'d otherwise skip.' },
+          ],
+          note: null,
+        },
         isin: 'IE00B4L5Y983',
         aum: '~€80bn',
       },
@@ -144,7 +195,12 @@ export const ARCHETYPES = {
         '500 biggest US companies — plenty of story, no single-stock risk.',
         'The cash buffer satisfies your action instinct without burning your core.',
       ],
-      alternatives: 'Want more concentration: EQQQ (Nasdaq-100, 0.30%). Lowest S&P 500 cost: SPYL (0.03%). US investors: VOO or IVV (0.03%).',
+      alternatives: {
+        items: [
+          { ticker: 'EQQQ', name: 'Invesco Nasdaq-100 (0.30%)', why: 'More concentrated than S&P 500 — heavier tech, higher volatility. Only with the cash buffer firmly in place.' },
+        ],
+        note: 'US investors: VOO or IVV (0.03%) — same S&P 500 exposure, US-domiciled.',
+      },
       isin: 'IE00B5BMR087',
       aum: '~€50bn',
     },
@@ -158,7 +214,13 @@ export const ARCHETYPES = {
           'High-yield savings or XEON (overnight rate ETF, 0.10%) give you real return while you build.',
           'When your foundation is solid, VWCE or CSPX will still be there.',
         ],
-        alternatives: 'Intermediate step: AGGH (global bonds, 0.10%) while building. Move to equities when your financial floor is secure.',
+        alternatives: {
+          items: [
+            { ticker: 'XEON', name: 'Xtrackers Overnight Rate Swap (0.10%)', why: 'Real return while you stabilise. Better than holding cash idle — and no market risk.' },
+            { ticker: 'AGGH', name: 'iShares Global Aggregate Bond (0.10%)', why: 'Low volatility, real yield. Intermediate step while you build your financial foundation.' },
+          ],
+          note: 'When your foundation is solid, VWCE or CSPX will still be there.',
+        },
         isin: null,
         aum: null,
       },
@@ -171,7 +233,13 @@ export const ARCHETYPES = {
           'Your horizon and foundation support equity — but CSPX is too concentrated for now.',
           'As your situation strengthens, you can rotate toward a more focused allocation.',
         ],
-        alternatives: 'If VWCE unavailable: FWRA (Invesco, 0.15%) or SSAC (iShares, 0.20%).',
+        alternatives: {
+          items: [
+            { ticker: 'FWRA', name: 'Invesco FTSE All-World (0.15%)', why: 'VWCE equivalent at slightly lower cost. Same global exposure.' },
+            { ticker: 'SSAC', name: 'iShares MSCI ACWI (0.20%)', why: 'All-world from iShares. Good if VWCE or FWRA unavailable at your broker.' },
+          ],
+          note: null,
+        },
         isin: 'IE00B3RBWM25',
         aum: '~€20bn',
       },
@@ -184,7 +252,12 @@ export const ARCHETYPES = {
           '500 biggest US companies — plenty of story, no single-stock risk.',
           'The cash buffer satisfies your action instinct without burning your core.',
         ],
-        alternatives: 'Want more concentration: EQQQ (Nasdaq-100, 0.30%). Lowest S&P 500 cost: SPYL (0.03%). US investors: VOO or IVV (0.03%).',
+        alternatives: {
+          items: [
+            { ticker: 'EQQQ', name: 'Invesco Nasdaq-100 (0.30%)', why: 'More concentrated than S&P 500 — heavier tech, higher volatility. Only with the cash buffer firmly in place.' },
+          ],
+          note: 'US investors: VOO or IVV (0.03%) — same S&P 500 exposure, US-domiciled.',
+        },
         isin: 'IE00B5BMR087',
         aum: '~€50bn',
       },
@@ -210,7 +283,7 @@ export const ARCHETYPES = {
         'The equity sleeve grows something without making you feel exposed.',
         '70/30 is a starting point you can own with confidence.',
       ],
-      alternatives: 'Pre-built option: AOK (iShares Conservative Allocation, 0.15%). Government bonds only: IGLO (0.10%). Short-duration: IBTS (0.07%).',
+      alternatives: ALT_IGLO_IBTS,
       isin: 'IE00BDBRDM35',
       aum: '~€12bn',
     },
@@ -224,7 +297,7 @@ export const ARCHETYPES = {
           'The 10% VWCE sleeve is your inflation defense. Without it, \'safe\' costs you money silently.',
           'This is a floor you can stand on with full confidence.',
         ],
-        alternatives: 'Pre-built: AOK (iShares Conservative Allocation, 0.15%). Or pure bonds: IGLO (0.10%) while you build your horizon.',
+        alternatives: ALT_IGLO_IBTS,
         isin: 'IE00BDBRDM35 / IE00B3RBWM25',
         aum: '~€12bn / ~€20bn',
       },
@@ -237,7 +310,7 @@ export const ARCHETYPES = {
           'The equity sleeve grows something without making you feel exposed.',
           '70/30 is a starting point you can own with confidence.',
         ],
-        alternatives: 'Pre-built option: AOK (iShares Conservative Allocation, 0.15%). Government bonds only: IGLO (0.10%). Short-duration: IBTS (0.07%).',
+        alternatives: ALT_IGLO_IBTS,
         isin: 'IE00BDBRDM35',
         aum: '~€12bn',
       },
@@ -250,7 +323,13 @@ export const ARCHETYPES = {
           'The 50% bond allocation still gives you a floor to stand on in a downturn.',
           'Inflation at 3.5% per year quietly destroys a bonds-only portfolio over 20 years.',
         ],
-        alternatives: 'Pre-built: VNGA40 (Vanguard LifeStrategy 40% Equity, 0.25%). Consider moving to 60/40 as your confidence builds.',
+        alternatives: {
+          items: [
+            { ticker: 'VNGA40', name: 'Vanguard LifeStrategy 40% Equity (0.25%)', why: 'Auto-rebalanced 40/60 — built-in discipline, no annual rebalancing needed.' },
+            { ticker: 'IGLO', name: 'iShares Global Government Bond (0.10%)', why: 'If you prefer pure government bonds over the corporate-mixed AGGH.' },
+          ],
+          note: 'Consider moving to 60/40 as your confidence builds over time.',
+        },
         isin: 'IE00BDBRDM35 / IE00B3RBWM25',
         aum: '~€12bn / ~€20bn',
       },

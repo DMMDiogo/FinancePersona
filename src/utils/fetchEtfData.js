@@ -7,11 +7,18 @@ const YAHOO_SYMBOLS = {
   IBTS: 'IBTS.L',
   XEON: 'XEON.DE',
   FWRA: 'FWRA.L',
+  SSAC: 'SSAC.L',
+  SWRD: 'SWRD.L',
+  EMIM: 'EMIM.L',
+  EQQQ: 'EQQQ.L',
+  VNGA80: 'VNGA80.AS',
+  VNGA60: 'VNGA60.AS',
+  VNGA40: 'VNGA40.AS',
 };
 
 function extractPrimaryTicker(tickerString) {
   if (!tickerString) return null;
-  const match = tickerString.match(/^([A-Z]{2,5})/);
+  const match = tickerString.match(/^([A-Z]{2,5}\d{0,2})/);
   return match ? match[1] : null;
 }
 

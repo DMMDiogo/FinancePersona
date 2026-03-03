@@ -5,12 +5,14 @@ import styles from './EtfChart.module.css';
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
 const W = 400;
-const H = 110;
-const PAD = { top: 8, right: 12, bottom: 22, left: 12 };
-const PLOT_W = W - PAD.left - PAD.right;
-const PLOT_H = H - PAD.top - PAD.bottom;
+const PAD_FULL    = { top: 8, right: 12, bottom: 22, left: 12 };
+const PAD_COMPACT = { top: 6, right: 10, bottom: 4,  left: 10 };
 
-export default function EtfChart({ ticker, color }) {
+export default function EtfChart({ ticker, color, compact = false }) {
+  const H = compact ? 70 : 110;
+  const PAD = compact ? PAD_COMPACT : PAD_FULL;
+  const PLOT_W = W - PAD.left - PAD.right;
+  const PLOT_H = H - PAD.top - PAD.bottom;
   const [state, setState] = useState('loading');
   const [points, setPoints] = useState([]);
   const [yearBaseClose, setYearBaseClose] = useState(null);
@@ -42,7 +44,7 @@ export default function EtfChart({ ticker, color }) {
   }, [ticker]);
 
   if (state === 'hidden') return null;
-  if (state === 'loading') return <div className={styles.skeleton} />;
+  if (state === 'loading') return <div className={compact ? styles.skeletonCompact : styles.skeleton} />;
 
   const closes = points.map((p) => p.close);
   const minC = Math.min(...closes);
@@ -88,14 +90,14 @@ export default function EtfChart({ ticker, color }) {
       <div className={styles.header}>
         <div className={styles.liveRow}>
           {currentPrice != null && (
-            <span className={styles.livePrice}>
+            <span className={compact ? styles.livePriceCompact : styles.livePrice}>
               {currencySymbol}{currentPrice.toFixed(2)}
             </span>
           )}
           <span className={styles.liveDot}>◉</span>
           <span className={styles.liveLabel}>LIVE</span>
         </div>
-        <span className={isPos ? styles.positive : styles.negative}>
+        <span className={isPos ? (compact ? styles.positiveCompact : styles.positive) : (compact ? styles.negativeCompact : styles.negative)}>
           {isPos ? '+' : ''}{yearChange.toFixed(1)}% 1yr
         </span>
       </div>
@@ -127,8 +129,8 @@ export default function EtfChart({ ticker, color }) {
           strokeLinecap="round"
         />
 
-        {/* Month labels — show every other if > 8 points */}
-        {points.map((p, i) => {
+        {/* Month labels — full mode only */}
+        {!compact && points.map((p, i) => {
           const step = points.length > 8 ? 2 : 1;
           if (i % step !== 0 && i !== points.length - 1) return null;
           return (

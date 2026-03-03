@@ -86,6 +86,37 @@
   animation: pulse 1.4s ease infinite;
 }
 
+.skeletonCompact {
+  height: 70px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  animation: pulse 1.4s ease infinite;
+}
+
+.livePriceCompact {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.positiveCompact {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #00c896;
+  font-weight: 700;
+}
+
+.negativeCompact {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--red);
+  font-weight: 700;
+}
+
 @keyframes pulse {
   0%, 100% { opacity: 0.4; }
   50% { opacity: 0.8; }
