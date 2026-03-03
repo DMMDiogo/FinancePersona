@@ -26,9 +26,8 @@ export default function EtfLiveBadge({ ticker }) {
     return <div className={styles.skeleton} />;
   }
 
-  const { price, currencySymbol, dayChange, yearReturn } = data;
+  const { price, currencySymbol, dayChange } = data;
   const dayChangePos = dayChange != null && dayChange >= 0;
-  const yearReturnPos = yearReturn != null && yearReturn >= 0;
 
   return (
     <div className={styles.badge}>
@@ -40,14 +39,6 @@ export default function EtfLiveBadge({ ticker }) {
           <span className={styles.sep}>·</span>
           <span className={dayChangePos ? styles.positive : styles.negative}>
             {dayChangePos ? '+' : ''}{dayChange.toFixed(2)}% today
-          </span>
-        </>
-      )}
-      {yearReturn != null && (
-        <>
-          <span className={styles.sep}>·</span>
-          <span className={yearReturnPos ? styles.positive : styles.negative}>
-            {yearReturnPos ? '+' : ''}{yearReturn.toFixed(1)}% 1yr
           </span>
         </>
       )}
