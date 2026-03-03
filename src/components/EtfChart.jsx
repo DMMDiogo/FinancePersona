@@ -13,6 +13,7 @@ const PLOT_H = H - PAD.top - PAD.bottom;
 export default function EtfChart({ ticker, color }) {
   const [state, setState] = useState('loading');
   const [points, setPoints] = useState([]);
+  const [yearBaseClose, setYearBaseClose] = useState(null);
   const [currentPrice, setCurrentPrice] = useState(null);
   const [currencySymbol, setCurrencySymbol] = useState('€');
   const [hovered, setHovered] = useState(null);
@@ -23,7 +24,13 @@ export default function EtfChart({ ticker, color }) {
     fetchEtfChart(ticker).then((data) => {
       if (cancelled) return;
       if (data) {
-        setPoints(data.points);
+        // Decimate daily points (~252) to ~12 evenly spaced samples for the curve.
+        // Preserve allPoints[0] as the accurate 1yr baseline for % calculation.
+        const all = data.points;
+        const step = Math.max(1, Math.floor(all.length / 12));
+        const sampled = all.filter((_, i) => i % step === 0 || i === all.length - 1);
+        setPoints(sampled);
+        setYearBaseClose(all[0].close);
         setCurrentPrice(data.currentPrice);
         setCurrencySymbol(data.currencySymbol ?? '€');
         setState('ready');
@@ -54,7 +61,8 @@ export default function EtfChart({ ticker, color }) {
   ].join(' ');
 
   const livePrice = currentPrice ?? closes[closes.length - 1];
-  const yearChange = ((livePrice - closes[0]) / closes[0]) * 100;
+  const baseline = yearBaseClose ?? closes[0];
+  const yearChange = ((livePrice - baseline) / baseline) * 100;
   const isPos = yearChange >= 0;
   const gradId = `g-${ticker.replace(/[^a-zA-Z0-9]/g, '')}`;
 

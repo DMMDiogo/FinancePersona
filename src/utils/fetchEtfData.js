@@ -30,7 +30,7 @@ export async function fetchEtfChart(tickerString) {
   if (!yahooSymbol) return null;
 
   try {
-    const res = await fetch(`/api/etf/${yahooSymbol}?interval=1mo&range=1y`);
+    const res = await fetch(`/api/etf/${yahooSymbol}?interval=1d&range=1y`);
     if (!res.ok) return null;
 
     const data = await res.json();
