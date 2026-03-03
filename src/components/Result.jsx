@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { ARCHETYPES } from '../data/archetypes';
 import PixelArt from './PixelArt';
-import EtfLiveBadge from './EtfLiveBadge';
 import EtfChart from './EtfChart';
 import { downloadResultCard } from '../utils/downloadCard';
 import styles from './Result.module.css';
@@ -366,7 +365,6 @@ function SectionMove({ archetype, suitability, literacy, color }) {
       <div className={styles.etfIdentity}>
         <span className={styles.etfTicker}>{etf.ticker}</span>
         <span className={styles.etfName}>{etf.name}</span>
-        {!isNotReady && <EtfLiveBadge ticker={etf.ticker} />}
         {literacy === 'advanced' && etf.isin && (
           <span className={styles.etfAdvanced}>ISIN: {etf.isin} · AUM: {etf.aum}</span>
         )}
