@@ -40,11 +40,14 @@ export async function fetchEtfChart(tickerString) {
     const timestamps = chart.timestamp ?? [];
     const closes = chart.indicators?.quote?.[0]?.close ?? [];
 
+    const currentPrice = chart.meta?.regularMarketPrice ?? null;
+
     const points = timestamps
       .map((ts, i) => ({ date: new Date(ts * 1000), close: closes[i] }))
       .filter(p => p.close != null);
 
-    return points.length >= 2 ? points : null;
+    if (points.length < 2) return null;
+    return { points, currentPrice };
   } catch {
     return null;
   }

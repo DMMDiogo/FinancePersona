@@ -13,6 +13,7 @@ const PLOT_H = H - PAD.top - PAD.bottom;
 export default function EtfChart({ ticker, color }) {
   const [state, setState] = useState('loading');
   const [points, setPoints] = useState([]);
+  const [currentPrice, setCurrentPrice] = useState(null);
   const [hovered, setHovered] = useState(null);
   const svgRef = useRef(null);
 
@@ -21,7 +22,8 @@ export default function EtfChart({ ticker, color }) {
     fetchEtfChart(ticker).then((data) => {
       if (cancelled) return;
       if (data) {
-        setPoints(data);
+        setPoints(data.points);
+        setCurrentPrice(data.currentPrice);
         setState('ready');
       } else {
         setState('hidden');
@@ -49,7 +51,8 @@ export default function EtfChart({ ticker, color }) {
     'Z',
   ].join(' ');
 
-  const yearChange = ((closes[closes.length - 1] - closes[0]) / closes[0]) * 100;
+  const livePrice = currentPrice ?? closes[closes.length - 1];
+  const yearChange = ((livePrice - closes[0]) / closes[0]) * 100;
   const isPos = yearChange >= 0;
   const gradId = `g-${ticker.replace(/[^a-zA-Z0-9]/g, '')}`;
 
