@@ -14,6 +14,7 @@ export default function EtfChart({ ticker, color }) {
   const [state, setState] = useState('loading');
   const [points, setPoints] = useState([]);
   const [currentPrice, setCurrentPrice] = useState(null);
+  const [currencySymbol, setCurrencySymbol] = useState('€');
   const [hovered, setHovered] = useState(null);
   const svgRef = useRef(null);
 
@@ -24,6 +25,7 @@ export default function EtfChart({ ticker, color }) {
       if (data) {
         setPoints(data.points);
         setCurrentPrice(data.currentPrice);
+        setCurrencySymbol(data.currencySymbol ?? '€');
         setState('ready');
       } else {
         setState('hidden');
@@ -76,7 +78,15 @@ export default function EtfChart({ ticker, color }) {
   return (
     <div className={styles.wrap}>
       <div className={styles.header}>
-        <span className={styles.label}>12-MONTH PRICE</span>
+        <div className={styles.liveRow}>
+          {currentPrice != null && (
+            <span className={styles.livePrice}>
+              {currencySymbol}{currentPrice.toFixed(2)}
+            </span>
+          )}
+          <span className={styles.liveDot}>◉</span>
+          <span className={styles.liveLabel}>LIVE</span>
+        </div>
         <span className={isPos ? styles.positive : styles.negative}>
           {isPos ? '+' : ''}{yearChange.toFixed(1)}% 1yr
         </span>

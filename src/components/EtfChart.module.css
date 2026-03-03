@@ -23,18 +23,52 @@
   opacity: 0.6;
 }
 
+.liveRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.livePrice {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.liveDot {
+  font-size: 10px;
+  color: var(--cyan);
+  animation: blink 1.4s ease-in-out infinite;
+}
+
+.liveLabel {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--cyan);
+  letter-spacing: 0.12em;
+  opacity: 0.7;
+}
+
 .positive {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 14px;
   color: #00c896;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .negative {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 14px;
   color: var(--red);
-  font-weight: 600;
+  font-weight: 700;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
 }
 
 .svg {
